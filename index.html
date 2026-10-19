@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEHORA v2 — Elegance in Every Detail</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FDFBF7',
+                        'cream-dark': '#F5F0EB',
+                        gold: '#D4AF37',
+                        'gold-light': '#F4E8C1',
+                        'gold-dark': '#C5A059',
+                        charcoal: '#121212'
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #FDFBF7; color: #121212; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .gold-gradient-bg { background: linear-gradient(135deg, #D4AF37 0%, #C5A059 100%); }
+        .luxury-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .luxury-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08); }
+        .glass-header { background: rgba(253, 251, 247, 0.95); backdrop-filter: blur(10px); }
+        @keyframes ringPulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+            70% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        .nora-ring { animation: ringPulse 2s infinite; }
+    </style>
+</head>
+<body class="antialiased text-charcoal">
+
+    <!-- Toast Notification -->
+    <div id="toast-container" class="fixed top-24 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Announcement Bar -->
+    <div class="bg-charcoal text-gold-light text-[11px] tracking-[0.2em] uppercase py-2 text-center font-light border-b border-gold/20">
+        Complimentary Express Worldwide Shipping & VIP Styling Concierge
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 glass-header border-b border-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-charcoal p-2">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="#" class="text-3xl md:text-4xl font-serif tracking-[0.25em] font-semibold text-charcoal">
+                    NEHORA
+                </a>
+                <nav class="hidden md:flex space-x-8 text-xs tracking-[0.2em] font-medium uppercase">
+                    <a href="#catalog" onclick="filterCategory('All')" class="hover:text-gold transition">All Collections</a>
+                    <a href="#catalog" onclick="filterCategory('Women')" class="hover:text-gold transition">Women</a>
+                    <a href="#catalog" onclick="filterCategory('Men')" class="hover:text-gold transition">Men</a>
+                    <a href="#catalog" onclick="filterCategory('Ethnic Wear')" class="hover:text-gold transition">Ethnic</a>
+                    <a href="#catalog" onclick="filterCategory('Jewellery')" class="hover:text-gold transition">Jewellery</a>
+                </nav>
+                <div class="flex items-center space-x-5 text-lg">
+                    <button id="open-wishlist" onclick="showWishlist()" class="relative p-1 hover:text-gold transition">
+                        <i class="fa-regular fa-heart"></i>
+                        <span id="wishlist-badge" class="absolute -top-1 -right-2 bg-gold text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                    </button>
+                    <button id="open-cart" onclick="openCart()" class="relative p-1 hover:text-gold transition">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-2 bg-charcoal text-gold-light text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gold/20 bg-cream p-6 space-y-3">
+            <a href="#catalog" onclick="filterCategory('All'); toggleMobileMenu();" class="block text-sm uppercase tracking-widest py-1">All Collections</a>
+            <a href="#catalog" onclick="filterCategory('Women'); toggleMobileMenu();" class="block text-sm uppercase tracking-widest py-1">Women's Couture</a>
+            <a href="#catalog" onclick="filterCategory('Men'); toggleMobileMenu();" class="block text-sm uppercase tracking-widest py-1">Men's Tailoring</a>
+            <a href="#catalog" onclick="filterCategory('Ethnic Wear'); toggleMobileMenu();" class="block text-sm uppercase tracking-widest py-1">Ethnic Heritage</a>
+            <a href="#catalog" onclick="filterCategory('Jewellery'); toggleMobileMenu();" class="block text-sm uppercase tracking-widest py-1">High Jewellery</a>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative h-[80vh] bg-charcoal text-white flex items-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop" alt="NEHORA Luxury" class="absolute inset-0 w-full h-full object-cover opacity-50">
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-charcoal/40"></div>
+        <div class="relative max-w-7xl mx-auto px-6 text-center z-10">
+            <span class="text-gold tracking-[0.3em] uppercase text-xs font-semibold mb-4 block">Haute Couture 2026</span>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-light tracking-wide mb-6">Elegance in Every Detail</h1>
+            <p class="max-w-xl mx-auto font-light text-sm text-gray-300 tracking-wider mb-8">Crafted for discerning connoisseurs of refined taste, bespoke tailoring, and timeless heritage.</p>
+            <a href="#catalog" class="inline-block border border-gold bg-gold/10 hover:bg-gold hover:text-charcoal text-gold font-medium uppercase tracking-[0.2em] text-xs px-10 py-4 transition">Explore Collection</a>
+        </div>
+    </section>
+
+    <!-- Product Catalog Section -->
+    <section id="catalog" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-gold/20 pb-6 gap-6">
+            <div>
+                <span class="text-gold tracking-[0.25em] text-xs font-semibold uppercase block mb-1">Curated Catalogue</span>
+                <h2 class="text-3xl md:text-5xl font-serif">Maison Masterpieces</h2>
+            </div>
+            
+            <div id="category-filters" class="flex flex-wrap gap-2 text-xs uppercase tracking-wider">
+                <button onclick="filterCategory('All')" class="filter-btn active px-4 py-2 border border-charcoal bg-charcoal text-gold">All</button>
+                <button onclick="filterCategory('Women')" class="filter-btn px-4 py-2 border border-gold/30">Women</button>
+                <button onclick="filterCategory('Men')" class="filter-btn px-4 py-2 border border-gold/30">Men</button>
+                <button onclick="filterCategory('Ethnic Wear')" class="filter-btn px-4 py-2 border border-gold/30">Ethnic</button>
+                <button onclick="filterCategory('Jewellery')" class="filter-btn px-4 py-2 border border-gold/30">Jewellery</button>
+            </div>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Dynamically Loaded via JS -->
+        </div>
+    </section>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCart()"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-cream border-l border-gold/30 shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-gold/20 flex items-center justify-between">
+                    <h3 class="font-serif text-2xl tracking-wider">Shopping Bag</h3>
+                    <button onclick="closeCart()" class="text-gray-500 text-xl"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+                <div class="p-6 border-t border-gold/20 bg-cream-dark space-y-4">
+                    <div class="flex justify-between text-sm">
+                        <span class="uppercase tracking-wider">Subtotal</span>
+                        <span id="cart-subtotal" class="font-serif font-bold text-lg">$0.00</span>
+                    </div>
+                    <button onclick="openCheckout()" class="w-full gold-gradient-bg text-charcoal font-semibold py-4 uppercase tracking-[0.2em] text-xs">Checkout Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 hidden">
+        <div class="bg-cream border border-gold/30 max-w-2xl w-full p-6 relative flex flex-col md:flex-row gap-6">
+            <button onclick="closeProductModal()" class="absolute top-3 right-3 text-2xl"><i class="fa-solid fa-xmark"></i></button>
+            <img id="modal-img" src="" class="w-full md:w-1/2 h-64 object-cover">
+            <div class="md:w-1/2 flex flex-col justify-between">
+                <div>
+                    <span id="modal-category" class="text-gold text-[10px] uppercase font-semibold"></span>
+                    <h3 id="modal-title" class="font-serif text-2xl mb-2"></h3>
+                    <p id="modal-price" class="text-lg font-serif font-semibold text-gold-dark mb-3"></p>
+                    <p id="modal-desc" class="text-xs text-gray-600 mb-4 leading-relaxed"></p>
+                </div>
+                <button id="modal-add-cart" class="w-full bg-charcoal text-gold py-3 uppercase tracking-widest text-xs font-semibold">Add To Bag</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 hidden">
+        <div class="bg-cream border border-gold/30 max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeCheckout()" class="absolute top-3 right-3 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="font-serif text-2xl text-center mb-1">NEHORA Checkout</h3>
+            <p class="text-center text-xs text-gold uppercase tracking-widest mb-4">Direct Order Concierge</p>
+            <form onsubmit="handleCheckout(event)" class="space-y-3 text-xs">
+                <input type="text" placeholder="Full Name" required class="w-full p-3 border border-gray-300 bg-white">
+                <input type="email" placeholder="Email Address" required class="w-full p-3 border border-gray-300 bg-white">
+                <input type="text" placeholder="Shipping Address" required class="w-full p-3 border border-gray-300 bg-white">
+                <div class="flex justify-between font-bold text-sm pt-2">
+                    <span>Total:</span>
+                    <span id="checkout-total">$0.00</span>
+                </div>
+                <button type="submit" class="w-full gold-gradient-bg text-charcoal font-bold py-3 uppercase tracking-widest">Confirm Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Nora AI Chatbot Floating Button -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <button onclick="toggleChat()" class="w-14 h-14 rounded-full gold-gradient-bg text-charcoal shadow-2xl flex items-center justify-center text-xl nora-ring">
+            <i class="fa-solid fa-sparkles"></i>
+        </button>
+    </div>
+
+    <!-- Nora Chat Window -->
+    <div id="chat-window" class="fixed bottom-24 right-6 w-80 max-w-[90vw] h-[450px] bg-white rounded-xl shadow-2xl border border-gold/30 flex flex-col z-50 hidden overflow-hidden">
+        <div class="bg-charcoal text-cream p-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full gold-gradient-bg flex items-center justify-center text-charcoal font-serif font-bold">N</div>
+                <div>
+                    <h4 class="font-serif text-sm text-gold">NORA — AI Stylist</h4>
+                    <p class="text-[9px] text-gray-400">Online Concierge</p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="text-gray-400"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2 bg-cream/40 text-xs">
+            <div class="bg-white border border-gold/20 p-2.5 rounded-lg text-charcoal">
+                Hello! I am <strong>Nora</strong>, your personal AI fashion stylist. Ask me for recommendations or style advice!
+            </div>
+        </div>
+        <div class="p-2 border-t border-gray-200 bg-white flex space-x-2">
+            <input type="text" id="chat-input" placeholder="Ask Nora..." class="flex-1 border border-gray-300 rounded-full px-3 py-1.5 text-xs focus:outline-none">
+            <button onclick="sendNoraMessage()" class="bg-charcoal text-gold w-7 h-7 rounded-full flex items-center justify-center"><i class="fa-solid fa-paper-plane text-xs"></i></button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const products = [
+            { id: 1, name: "Silk Evening Gown", category: "Women", price: 3450, image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=600&auto=format&fit=crop", desc: "Hand-draped pure mulberry silk gown with champagne-gold embroidery." },
+            { id: 2, name: "Royal Velvet Tuxedo", category: "Men", price: 2890, image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=600&auto=format&fit=crop", desc: "Italian velvet single-breasted tuxedo with satin lapels." },
+            { id: 3, name: "Zardozi Sherwani", category: "Ethnic Wear", price: 4200, image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=600&auto=format&fit=crop", desc: "Hand-embroidered gold wire sherwani with raw silk stoles." },
+            { id: 4, name: "Emerald Necklace", category: "Jewellery", price: 12500, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=600&auto=format&fit=crop", desc: "18k gold setting with a 5-carat Zambian emerald and diamonds." }
+        ];
+
+        let cart = [];
+        let wishlist = [];
+        let activeCat = 'All';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            document.getElementById('chat-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendNoraMessage();
+            });
+        });
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const items = activeCat === 'All' ? products : products.filter(p => p.category === activeCat);
+            
+            grid.innerHTML = items.map(product => `
+                <div class="luxury-card bg-white border border-gold/20 rounded-sm overflow-hidden flex flex-col">
+                    <div class="relative h-72 bg-charcoal overflow-hidden group">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <button onclick="toggleWishlist(${product.id})" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/80 flex items-center justify-center">
+                            <i class="${wishlist.includes(product.id) ? 'fa-solid text-red-600' : 'fa-regular'} fa-heart text-xs"></i>
+                        </button>
+                        <button onclick="openProductModal(${product.id})" class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-charcoal/90 text-gold text-[9px] uppercase tracking-widest px-3 py-1.5 opacity-0 group-hover:opacity-100 transition">Quick View</button>
+                    </div>
+                    <div class="p-4 text-center bg-cream flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[9px] tracking-widest text-gold uppercase block">${product.category}</span>
+                            <h3 class="font-serif text-base font-medium text-charcoal mb-1">${product.name}</h3>
+                        </div>
+                        <div class="pt-2 border-t border-gold/10 flex items-center justify-between">
+                            <span class="font-serif font-semibold text-gold-dark">$${product.price.toLocaleString()}</span>
+                            <button onclick="addToCart(${product.id})" class="text-xs uppercase tracking-wider text-charcoal hover:text-gold font-semibold">+ Add</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(cat) {
+            activeCat = cat;
+            renderProducts();
+        }
+
+        function addToCart(id) {
+            const item = products.find(p => p.id === id);
+            const inCart = cart.find(c => c.id === id);
+            if (inCart) inCart.qty += 1;
+            else cart.push({ ...item, qty: 1 });
+            updateCart();
+            openCart();
+            showToast(`Added ${item.name} to bag.`);
+        }
+
+        function updateCart() {
+            document.getElementById('cart-badge').innerText = cart.reduce((s, i) => s + i.qty, 0);
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-10 text-gray-400 font-serif">Your shopping bag is empty.</div>`;
+                document.getElementById('cart-subtotal').innerText = '$0.00';
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map(i => {
+                total += i.price * i.qty;
+                return `
+                    <div class="flex items-center space-x-3 border-b border-gold/10 pb-3">
+                        <img src="${i.image}" class="w-12 h-16 object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-serif text-xs">${i.name}</h4>
+                            <p class="text-xs text-gold-dark font-serif font-bold">$${i.price}</p>
+                            <span class="text-xs">Qty: ${i.qty}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('cart-subtotal').innerText = `$${total.toLocaleString()}`;
+        }
+
+        function toggleWishlist(id) {
+            const idx = wishlist.indexOf(id);
+            if (idx > -1) wishlist.splice(idx, 1);
+            else wishlist.push(id);
+            document.getElementById('wishlist-badge').innerText = wishlist.length;
+            document.getElementById('wishlist-badge').classList.toggle('hidden', wishlist.length === 0);
+            renderProducts();
+        }
+
+        function showWishlist() {
+            if (wishlist.length === 0) showToast('Wishlist is empty.');
+            else showToast(`Wishlist contains ${wishlist.length} item(s).`);
+        }
+
+        function openCart() { document.getElementById('cart-drawer').classList.remove('hidden'); }
+        function closeCart() { document.getElementById('cart-drawer').classList.add('hidden'); }
+
+        function openProductModal(id) {
+            const p = products.find(prod => prod.id === id);
+            document.getElementById('modal-img').src = p.image;
+            document.getElementById('modal-category').innerText = p.category;
+            document.getElementById('modal-title').innerText = p.name;
+            document.getElementById('modal-price').innerText = `$${p.price.toLocaleString()}`;
+            document.getElementById('modal-desc').innerText = p.desc;
+            document.getElementById('modal-add-cart').onclick = () => { addToCart(p.id); closeProductModal(); };
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+        function closeProductModal() { document.getElementById('product-modal').classList.add('hidden'); }
+
+        function openCheckout() {
+            if (cart.length === 0) return showToast('Bag is empty!');
+            closeCart();
+            const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+            document.getElementById('checkout-total').innerText = `$${total.toLocaleString()}`;
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+        function closeCheckout() { document.getElementById('checkout-modal').classList.add('hidden'); }
+        function handleCheckout(e) {
+            e.preventDefault();
+            closeCheckout();
+            cart = [];
+            updateCart();
+            showToast('Order received successfully!');
+        }
+
+        function toggleChat() { document.getElementById('chat-window').classList.toggle('hidden'); }
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
+
+        function sendNoraMessage() {
+            const input = document.getElementById('chat-input');
+            const val = input.value.trim();
+            if (!val) return;
+
+            const box = document.getElementById('chat-messages');
+            box.innerHTML += `<div class="bg-charcoal text-gold p-2 rounded-lg ml-auto max-w-[80%]">${val}</div>`;
+            input.value = '';
+            
+            setTimeout(() => {
+                box.innerHTML += `<div class="bg-white border border-gold/20 p-2 rounded-lg max-w-[80%]">I recommend pairing our <strong>Silk Evening Gown</strong> with the <strong>Emerald Necklace</strong> for royal elegance!</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 600);
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-charcoal text-gold px-4 py-2 rounded text-xs shadow-lg border border-gold/30';
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+    </script>
+</body>
+</html>
